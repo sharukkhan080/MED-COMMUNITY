@@ -8,11 +8,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
-            <Link to="/" className="flex items-center gap-2 text-white font-bold text-xl mb-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center">
+            <Link to="/" className="flex items-center gap-2 text-white font-bold text-lg mb-3">
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center shrink-0">
                 <Stethoscope size={18} className="text-white" />
               </div>
-              MedCommunity
+              Padma Doctors Association
             </Link>
             <p className="text-sm leading-relaxed max-w-xs">
               India's premier platform for medical professionals — connecting doctors, sharing knowledge, and advancing healthcare together.
@@ -52,7 +52,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-slate-800 mt-10 pt-6 text-sm text-center">
-          &copy; {new Date().getFullYear()} MedCommunity. All rights reserved. Built with love for India's medical community.
+          &copy; {new Date().getFullYear()} Padma Doctors Association. All rights reserved. Built with love for India's medical community.
         </div>
       </div>
     </footer>

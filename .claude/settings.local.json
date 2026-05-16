@@ -5,7 +5,19 @@
       "Bash(npm run:*)",
       "Bash(./node_modules/.bin/vite build:*)",
       "Bash(npm --version)",
-      "Bash(npx vite:*)"
+      "Bash(npx vite:*)",
+      "Bash(gh auth:*)",
+      "Bash(git remote:*)",
+      "Bash(git add:*)",
+      "Bash(git push:*)",
+      "Bash(git branch:*)",
+      "Bash(taskkill /F /IM node.exe)",
+      "Bash(cmd.exe /c \"taskkill /F /IM node.exe\")",
+      "Bash(cmd.exe:*)",
+      "Bash(git merge:*)",
+      "Bash(git checkout:*)",
+      "Bash(git commit:*)",
+      "Bash(git rm:*)"
     ]
   }
 }

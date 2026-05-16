@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
-import { Calendar, MapPin, ArrowRight, Award } from 'lucide-react'
-import { events, typeConfig } from '../data/events'
+import { Calendar, MapPin, ArrowRight, Star } from 'lucide-react'
+import { events, getEventStatus, statusConfig } from '../data/events'
+import { doctors } from '../data/doctors'
 
 function StatCard({ value, label }) {
   return (
@@ -12,14 +13,19 @@ function StatCard({ value, label }) {
 }
 
 function EventCard({ event }) {
-  const config = typeConfig[event.type] || {}
-  const pct = Math.round((event.registered / event.seats) * 100)
+  const status = getEventStatus(event.date)
+  const sc = statusConfig[status]
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 card-hover flex flex-col gap-3 min-w-[300px] max-w-[300px]">
-      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold w-fit ${config.badge}`}>
-        <span className={`w-1.5 h-1.5 rounded-full ${config.dot}`} />
-        {event.type}
+    <a
+      href={`/events/${event.id}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 card-hover flex flex-col gap-3 min-w-[300px] max-w-[300px] cursor-pointer"
+    >
+      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold w-fit ${sc.badge}`}>
+        <span className={`w-1.5 h-1.5 rounded-full ${sc.dot}`} />
+        {status}
       </span>
 
       <h3 className="font-semibold text-slate-900 leading-snug line-clamp-2">{event.title}</h3>
@@ -43,20 +49,7 @@ function EventCard({ event }) {
         />
         <p className="text-xs text-slate-600 font-medium">{event.speaker.name}</p>
       </div>
-
-      <div className="mt-auto">
-        <div className="flex justify-between text-xs text-slate-500 mb-1">
-          <span>{event.registered} registered</span>
-          <span>{pct}% full</span>
-        </div>
-        <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
-          <div
-            className={`h-full bg-gradient-to-r ${config.gradient} rounded-full`}
-            style={{ width: `${pct}%` }}
-          />
-        </div>
-      </div>
-    </div>
+    </a>
   )
 }
 
@@ -68,14 +61,24 @@ export default function Home() {
       {/* Hero */}
       <section className="bg-gradient-to-br from-blue-700 via-blue-600 to-cyan-500 text-white py-20 px-4">
         <div className="max-w-7xl mx-auto text-center">
+          {/* Association branding */}
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <img src="/logo.jpeg" alt="Pewa Doctors" className="w-16 h-16 object-contain drop-shadow-lg" />
+            <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight">
+              Padma Doctor Association
+            </h1>
+          </div>
+          <p className="text-blue-200 text-base mb-12">Empowering India's Medical Community</p>
+
+          {/* Original hero content */}
           <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-1.5 rounded-full text-sm font-medium mb-6">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             India's #1 Platform for Medical Professionals
           </div>
-          <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
+          <h2 className="text-3xl md:text-5xl font-extrabold leading-tight mb-6">
             Events by Doctors,<br />
             <span className="text-cyan-200">for Doctors</span>
-          </h1>
+          </h2>
           <p className="text-blue-100 text-lg max-w-2xl mx-auto mb-10">
             Discover CME conferences, workshops, scholarships, and community discussions curated for India's medical community.
           </p>
@@ -104,6 +107,40 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Popular Doctors */}
+      <section className="py-12 bg-white border-b border-slate-100">
+        <div className="text-center mb-8 px-4">
+          <h2 className="text-2xl font-bold text-slate-900">Our Top Doctors</h2>
+          <p className="text-slate-500 text-sm mt-1">Trusted specialists from across India</p>
+        </div>
+        <div className="overflow-hidden">
+          <div className="flex gap-5 marquee-track" style={{ width: 'max-content', paddingLeft: '1.25rem' }}>
+            {[...doctors, ...doctors].map((doc, i) => (
+              <a
+                key={i}
+                href={`/doctors/${doc.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 flex flex-col items-center text-center w-52 shrink-0 hover:shadow-md hover:border-blue-200 transition-all cursor-pointer"
+              >
+                <img
+                  src={doc.image}
+                  alt={doc.name}
+                  className="w-16 h-16 rounded-full object-cover mb-3 border-2 border-blue-100"
+                />
+                <p className="font-semibold text-slate-900 text-sm leading-snug">{doc.name}</p>
+                <p className="text-blue-600 text-xs font-medium mt-1">{doc.specialization}</p>
+                <p className="text-slate-400 text-xs mt-1 line-clamp-2">{doc.hospital}</p>
+                <div className="flex items-center gap-1 mt-2">
+                  <Star size={11} className="text-amber-400 fill-amber-400" />
+                  <span className="text-xs font-semibold text-slate-700">{doc.rating}</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Featured Events */}
       <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto">
@@ -123,49 +160,6 @@ export default function Home() {
             {featured.map(event => (
               <EventCard key={event.id} event={event} />
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Category highlights */}
-      <section className="py-12 px-4 bg-slate-50">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">Browse by Category</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {[
-              { label: 'Conferences', icon: '🏛️', count: 3 },
-              { label: 'Workshops', icon: '🔬', count: 1 },
-              { label: 'Webinars', icon: '💻', count: 1 },
-              { label: 'Scholarships', icon: '🎓', count: 1 },
-              { label: 'Discussions', icon: '💬', count: 2 },
-              { label: 'Knowledge', icon: '📚', count: 1 },
-            ].map(cat => (
-              <Link
-                key={cat.label}
-                to="/events"
-                className="bg-white rounded-2xl p-4 text-center border border-slate-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all group"
-              >
-                <div className="text-3xl mb-2">{cat.icon}</div>
-                <p className="text-sm font-semibold text-slate-800 group-hover:text-blue-600 transition-colors">{cat.label}</p>
-                <p className="text-xs text-slate-400 mt-0.5">{cat.count} events</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Banner */}
-      <section className="py-12 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="bg-gradient-to-r from-blue-600 to-cyan-500 rounded-3xl p-10 text-white text-center">
-            <Award size={40} className="mx-auto mb-4 opacity-90" />
-            <h2 className="text-3xl font-bold mb-3">Are you an organizer?</h2>
-            <p className="text-blue-100 mb-8 max-w-md mx-auto">
-              Host your next medical event, workshop, or scholarship on MedCommunity and reach thousands of doctors across India.
-            </p>
-            <button className="bg-white text-blue-700 font-semibold px-8 py-3 rounded-xl hover:bg-blue-50 transition-colors shadow-lg">
-              Host an Event for Free
-            </button>
           </div>
         </div>
       </section>

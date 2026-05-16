@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Stethoscope, Menu, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -17,11 +17,16 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 font-bold text-xl text-blue-600">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center">
-              <Stethoscope size={18} className="text-white" />
+          <Link to="/" className="flex items-center gap-2.5">
+            <img
+              src="/logo.jpeg"
+              alt="Pewa Doctors"
+              className="w-10 h-10 object-contain"
+            />
+            <div className="leading-tight">
+              <p className="font-extrabold text-sm text-slate-800 tracking-tight">Padma Doctor</p>
+              <p className="font-extrabold text-sm text-blue-600 tracking-tight">Association</p>
             </div>
-            <span>Med<span className="text-slate-800">Community</span></span>
           </Link>
 
           {/* Desktop nav */}
@@ -39,17 +44,10 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+            <button className="ml-2 bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity shadow-sm">
+              Contact Us
+            </button>
           </nav>
-
-          {/* CTA */}
-          <div className="hidden md:flex items-center gap-3">
-            <button className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">
-              Sign In
-            </button>
-            <button className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity shadow-sm">
-              Host an Event
-            </button>
-          </div>
 
           {/* Mobile menu toggle */}
           <button
@@ -77,10 +75,9 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <div className="pt-2 space-y-2">
-              <button className="w-full text-left px-4 py-2 text-sm text-slate-600">Sign In</button>
+            <div className="pt-2">
               <button className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-4 py-2 rounded-lg text-sm font-semibold">
-                Host an Event
+                Contact Us
               </button>
             </div>
           </div>

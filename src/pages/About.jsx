@@ -69,7 +69,7 @@ export default function About() {
             <span className="text-cyan-300">powered by community</span>
           </h1>
           <p className="text-slate-300 text-lg max-w-2xl mx-auto">
-            MedCommunity was founded in 2022 by a group of Indian doctors who were frustrated by how fragmented and inaccessible medical professional development was. We built the platform we wished existed.
+            Padma Doctors Association was founded in 2022 by a group of Indian doctors who were frustrated by how fragmented and inaccessible medical professional development was. We built the platform we wished existed.
           </p>
         </div>
       </section>
@@ -140,7 +140,7 @@ export default function About() {
       <section className="py-16 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-slate-900 mb-4">
-            Join 12,000+ doctors on MedCommunity
+            Join 12,000+ doctors on Padma Doctors Association
           </h2>
           <p className="text-slate-500 mb-8">
             Be part of India's fastest-growing medical professional network.

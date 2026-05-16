@@ -170,17 +170,79 @@ export const events = [
     featured: false,
     tags: ["Surgery", "Robotics", "Innovation"],
   },
+  {
+    id: 10,
+    title: "Annual Physicians Summit 2026",
+    type: "Conference",
+    date: "June 20, 2026",
+    time: "9:00 AM – 6:00 PM IST",
+    location: "AIIMS New Delhi",
+    description:
+      "India's flagship annual gathering for physicians across all specialties, featuring keynotes, panel discussions, and hands-on clinical workshops led by the country's top medical experts.",
+    speaker: {
+      name: "Dr. Ananya Singh",
+      specialization: "Director, AIIMS New Delhi",
+      image: "https://randomuser.me/api/portraits/women/12.jpg",
+    },
+    seats: 500,
+    registered: 210,
+    featured: true,
+    tags: ["Summit", "CME", "Multidisciplinary"],
+  },
+  {
+    id: 11,
+    title: "Geriatric Care & Healthy Ageing Workshop",
+    type: "Workshop",
+    date: "July 10, 2026",
+    time: "10:00 AM – 4:00 PM IST",
+    location: "Manipal Hospital, Bengaluru",
+    description:
+      "A comprehensive workshop on managing complex multi-morbidity in elderly patients, covering polypharmacy, dementia care pathways, fall prevention, and palliative care principles.",
+    speaker: {
+      name: "Dr. Suresh Babu",
+      specialization: "Geriatrician, Manipal Hospital",
+      image: "https://randomuser.me/api/portraits/men/52.jpg",
+    },
+    seats: 100,
+    registered: 38,
+    featured: false,
+    tags: ["Geriatrics", "Palliative Care", "Hands-on"],
+  },
+  {
+    id: 12,
+    title: "Women in Medicine Leadership Forum",
+    type: "Community Discussion",
+    date: "August 5, 2026",
+    time: "5:00 PM – 7:30 PM IST",
+    location: "Online (Zoom)",
+    description:
+      "A community forum celebrating and empowering women physicians and medical researchers in India, addressing gender equity, leadership, and work-life integration in healthcare.",
+    speaker: {
+      name: "Dr. Preethi Rajan",
+      specialization: "Gynaecologist & Healthcare Leader",
+      image: "https://randomuser.me/api/portraits/women/29.jpg",
+    },
+    seats: 600,
+    registered: 155,
+    featured: true,
+    tags: ["Women in Medicine", "Leadership", "Community"],
+  },
 ]
 
-export const eventTypes = [
-  "All",
-  "Knowledge Sharing",
-  "Conference",
-  "Scholarship",
-  "Community Discussion",
-  "Workshop",
-  "Webinar",
-]
+export function getEventStatus(dateStr) {
+  return new Date(dateStr) >= new Date() ? 'Upcoming' : 'Completed'
+}
+
+export const statusConfig = {
+  Upcoming: {
+    badge: 'bg-emerald-100 text-emerald-700',
+    dot: 'bg-emerald-500',
+  },
+  Completed: {
+    badge: 'bg-slate-100 text-slate-600',
+    dot: 'bg-slate-400',
+  },
+}
 
 export const typeConfig = {
   "Knowledge Sharing": {
